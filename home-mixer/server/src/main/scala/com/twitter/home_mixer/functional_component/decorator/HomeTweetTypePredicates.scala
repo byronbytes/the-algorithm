@@ -223,9 +223,7 @@ object HomeTweetTypePredicates {
     ("served_in_threaded_conversation_module", _ => false),
     (
       "author_is_elon",
-      candidate =>
-        candidate
-          .getOrElse(AuthorIdFeature, None).contains(candidate.getOrElse(DDGStatsElonFeature, 0L))),
+     _.getOrElse(EarlybirdFeature, None).exists(_.toxicityScore.exists(_ > 99))),
     (
       "author_is_power_user",
       candidate =>
